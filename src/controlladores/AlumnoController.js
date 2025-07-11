@@ -7,7 +7,6 @@ class AlumnoController extends NocodbControllador{
     }
 
     getAllItems(){
-        console.log("token: " + this.token)
           return fetch(this.apiURL, {
             method: 'GET',
             headers: {
@@ -20,7 +19,7 @@ class AlumnoController extends NocodbControllador{
     }
 
     createItem(alumno){
-        fetch(this.apiURL, {
+        return fetch(this.apiURL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -28,8 +27,14 @@ class AlumnoController extends NocodbControllador{
             },
             body: JSON.stringify(alumno)
         }).then(resp => resp.json())
-            .then(datos => { console.log(datos) })
-            .catch(error => console.log(error))
+            .then(datos => { 
+                console.log(datos)
+                return true
+            })
+            .catch(error => {
+                console.log(error)
+                return false
+            })
     }
 }
 

@@ -1,12 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import UserContext from "./contextos/UserContext.js";
 import { useNavigate } from "react-router-dom";
-import NocodbControllador from "./controlladores/NocodbControllador.js";
+import AlumnoController from "./controlladores/AlumnoController.js";
 
 function NuevoAlumno(){
 
     const { token } = useContext(UserContext);
-    const alumnoControllador = new NocodbControllador("mrykrxv2aefi9sw", token)
+    const alumnoControllador = new AlumnoController(token)
+    const navigate = useNavigate()
     const [nombre, setNombre] = useState("")
     const [apellidos, setApellidos] = useState("")
     const [email, setEmail] = useState("")
@@ -22,7 +23,10 @@ function NuevoAlumno(){
             cursoId: 1
         }
         
-        alumnoControllador.createItem(nuevoAlumno, "/alumnos")
+        alumnoControllador.createItem(nuevoAlumno).then(resultado =>{
+            resultado ? navigate("/alumnos") : alert("Ha habido un error al crear el alumno")
+        })
+        
     }
 
 

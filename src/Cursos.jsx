@@ -1,12 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import UserContext from "./contextos/UserContext.js";
-import NocodbControllador from "./controlladores/NocodbControllador.js";
+import CursoController from './controlladores/CursoController.js'
 
 function Cursos() {
 
-    const { nombre, token } = useContext(UserContext);
+    const {token} = useContext(UserContext);
     const [cursos, setCursos] = useState([])
-    const cursosController = new NocodbControllador("m7bjwlzx0hx3yfg", token);
+    const cursosController = new CursoController(token);
 
     useEffect(() => {
         cursosController.getAllItems().then(data => setCursos(data))
